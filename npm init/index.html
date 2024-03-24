@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plumbing Company Reservation System</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Plumbing Company Reservation System</h1>
+    <div id="services"></div>
+    <div id="booking-form" style="display: none;">
+        <h2>Make a Booking</h2>
+        <div class="form-group">
+            <label for="customer-name">Your Name:</label>
+            <input type="text" id="customer-name">
+        </div>
+        <div class="form-group">
+            <label for="service">Choose a Service:</label>
+            <select id="service">
+                <option value="">Select Service</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="booking-date">Booking Date:</label>
+            <input type="date" id="booking-date">
+        </div>
+        <button onclick="makeBooking()">Book Now</button>
+    </div>
+</div>
+
+<script>
+    const services = [
+        { name: "Pipe Leak Repair", cost: 50.0 },
+        { name: "Clogged Drain Repair", cost: 80.0 }
+        // Add more services here if needed
+    ];
+
+    function displayServices() {
+        const servicesDiv = document.getElementById("services");
+        servicesDiv.innerHTML = "<h2>Available Services</h2>";
+        const selectService = document.getElementById("service");
+        selectService.innerHTML = "<option value=''>Select Service</option>";
+
+        services.forEach((service, index) => {
+            servicesDiv.innerHTML += `<p>${index + 1}. ${service.name} - $${service.cost}</p>`;
+            selectService.innerHTML += `<option value="${service.name}">${service.name}</option>`;
+        });
+
+        document.getElementById("booking-form").style.display = "block";
+    }
+
+    function makeBooking() {
+        const customerName = document.getElementById("customer-name").value;
+        const selectedService = document.getElementById("service").value;
+        const bookingDate = document.getElementById("booking-date").value;
+
+        if (!customerName || !selectedService || !bookingDate) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        // Here you would send the booking details to the server for processing
+        // For simplicity, let's just log the details to the console
+        console.log("Booking Details:");
+        console.log("Customer Name:", customerName);
+        console.log("Service:", selectedService);
+        console.log("Booking Date:", bookingDate);
+
+        // Clear form fields after booking
+        document.getElementById("customer-name").value = "";
+        document.getElementById("service").selectedIndex = 0;
+        document.getElementById("booking-date").value = "";
+
+        alert("Booking confirmed! Thank you.");
+    }
+
+    displayServices();
+</script>
+</body>
+</html>
